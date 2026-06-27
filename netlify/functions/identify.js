@@ -72,11 +72,14 @@ exports.handler = async function (event) {
       req.end();
     });
 
+    console.log('PlantNet status:', result.status);
+    console.log('PlantNet body:', result.body.substring(0, 300));
+
     if (result.status !== 200) {
       return {
-        statusCode: result.status,
+        statusCode: 200,
         headers,
-        body: JSON.stringify({ error: "Pl@ntNet Fehler", detail: result.body }),
+        body: JSON.stringify({ found: false, debug: "PlantNet " + result.status + ": " + result.body }),
       };
     }
 
